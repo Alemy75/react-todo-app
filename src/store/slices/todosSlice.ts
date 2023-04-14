@@ -8,11 +8,13 @@ export type Todo = {
     description: string
     date: string
     status: boolean
+    list: number
     importance: number
 }
 
-type List = {
+export type List = {
     id: number
+    name: string
     color: string
 }
 
@@ -24,23 +26,30 @@ interface TodosState {
 
 const initialState: TodosState = {
     todos: [],
-    lists: []
+    lists: [],
 }
 
 export const counterSlice = createSlice({
     name: 'todos',
     initialState,
     reducers: {
+        getTodos(state, action: PayloadAction<Todo[]>) {
+            state.todos = action.payload
+
+        },
+        getLists(state, action: PayloadAction<List[]>) {
+            state.lists = action.payload
+        },
         addTodo(state, action: PayloadAction<Todo>) {
             state.todos = [...state.todos, action.payload]
 
         },
         removeTodo(state, action: PayloadAction<number>) {
-            state.todos.filter(todo => todo.id === action.payload)
+            state.todos = state.todos.filter(todo => todo.id !== action.payload)
         }
     },
 })
 
-export const {addTodo, removeTodo} = counterSlice.actions
+export const {getTodos, getLists, addTodo, removeTodo} = counterSlice.actions
 export default counterSlice.reducer
 

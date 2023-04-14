@@ -8,6 +8,28 @@
     margin-bottom: 1rem;
     font-size: 1.5rem;
   }
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    & div {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      height: 20px;
+      & img {
+        height: 20px;
+        margin-left: 0.5rem;
+        opacity: 0.2;
+        transition: all 0.1s ease;
+        cursor: pointer;
+        &:hover {
+          transform: scale(1.1);;
+          opacity: 1;
+        }
+      }
+    }
+  }
   h4 {
     all: unset;
     font-weight: bold;
@@ -23,3 +45,4 @@
 
   }
 }
+

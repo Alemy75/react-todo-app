@@ -35,3 +35,21 @@ form {
 .input {
   margin-bottom: 1rem ;
 }
+
+.items {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  outline: 1px solid #ffd500;
+  & .item {
+    width: 200%;
+    font-size: 0.7rem;
+    justify-content: center;
+    padding: 10px;
+    &:hover {
+      cursor: pointer;
+      background-color: #ffd500 !important;
+    }
+  }
+}

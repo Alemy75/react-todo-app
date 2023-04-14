@@ -2,29 +2,29 @@ import './sass/index.scss'
 import Form from "./components/Form";
 import TodoItem from "./components/TodoItem";
 import {useEffect, useState} from "react";
+import {getTodos, getLists, Todo} from "./store/slices/todosSlice";
+import {useAppDispatch, useAppSelector} from "./hooks/hooks";
+import axios from "axios";
+const BASE_URL = 'http://127.0.0.1:8000/'
 
 function App() {
-    const [items, setItems] = useState([])
+    const dispatch = useAppDispatch()
+    const {todos} = useAppSelector(state => state.todos)
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/api/todo/task/')
-            .then(res => res.json())
-            .then(data => setItems(data))
-    }, [])
+        axios.get(BASE_URL + 'api/todo/task?ordering=-id')
+            .then(res => dispatch(getTodos(res.data)))
+    }, [todos])
+
     return (
         <div className="App">
             <div className="container">
                 <h1>Список задач</h1>
                 <Form/>
                 {
-                    items.map(todo => <TodoItem
-                        id={todo.id}
-                        title={todo.title}
-                        description={todo.description}
-                        date={todo.date}
-                        status={todo.status}
-                        list={todo.list}
-                        importance={todo.importance}
+                    todos.map((todo: Todo) => <TodoItem
+                        key={todo.id}
+                        {...todo}
                     />)
                 }
             </div>
