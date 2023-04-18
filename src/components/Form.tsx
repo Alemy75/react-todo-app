@@ -12,7 +12,6 @@ const Form: FC = () => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [date, setDate] = useState('')
-    const [status, setStatus] = useState(false)
     const [list, setList] = useState(0)
 
     const onSelectListHandler = (id: number):void => {
@@ -32,7 +31,7 @@ const Form: FC = () => {
             title,
             description,
             date,
-            status,
+            status: false,
             list,
             importance: 2
         }
@@ -46,10 +45,6 @@ const Form: FC = () => {
             <input onChange={(event: React.ChangeEvent<HTMLInputElement>) => setTitle(event.target.value)} className={s.input} type="text" placeholder="Введите название..."/>
             <input onChange={(event: React.ChangeEvent<HTMLInputElement>) => setDescription(event.target.value)} className={s.input} type="text" placeholder="Введите описание..."/>
             <input onChange={(event: React.ChangeEvent<HTMLInputElement>) => setDate(event.target.value)} className={s.input} type="date"/>
-            <div className={s.input}>
-                <label htmlFor="">Выполнено</label>
-                <input onChange={(event: React.ChangeEvent<HTMLInputElement>) => setStatus(event.target.checked)} type="checkbox"/>
-            </div>
             <div className={s.items}>
                 {
                     lists.map((item: List) =>

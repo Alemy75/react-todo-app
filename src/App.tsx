@@ -12,9 +12,12 @@ function App() {
     const {todos} = useAppSelector(state => state.todos)
 
     useEffect(() => {
-        axios.get(BASE_URL + 'api/todo/task?ordering=-id')
-            .then(res => dispatch(getTodos(res.data)))
-    }, [todos])
+        async function fetchTodos() {
+            let res = await axios.get(BASE_URL + 'api/todo/task?ordering=-id')
+            dispatch(getTodos(res.data))
+        }
+        fetchTodos()
+    }, [])
 
     return (
         <div className="App">

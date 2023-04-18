@@ -41,15 +41,21 @@ export const counterSlice = createSlice({
             state.lists = action.payload
         },
         addTodo(state, action: PayloadAction<Todo>) {
-            state.todos = [...state.todos, action.payload]
+            state.todos = [action.payload, ...state.todos]
 
         },
         removeTodo(state, action: PayloadAction<number>) {
             state.todos = state.todos.filter(todo => todo.id !== action.payload)
+        },
+        changeStatus(state, action: PayloadAction<number>) {
+            let findTodo = state.todos.find(todo => todo.id === action.payload)
+            if (findTodo) {
+                findTodo.status = !findTodo.status
+            } 
         }
     },
 })
 
-export const {getTodos, getLists, addTodo, removeTodo} = counterSlice.actions
+export const {getTodos, getLists, addTodo, removeTodo, changeStatus} = counterSlice.actions
 export default counterSlice.reducer
 
