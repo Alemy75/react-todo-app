@@ -17,16 +17,8 @@ export const counterSlice = createSlice({
     name: 'todos',
     initialState,
     reducers: {
-        getTodos(state, action: PayloadAction<Todo[]>) {
-            state.todos = action.payload
-
-        },
-        getLists(state, action: PayloadAction<List[]>) {
-            state.lists = action.payload
-        },
         addTodo(state, action: PayloadAction<Todo>) {
             state.todos = [action.payload, ...state.todos]
-
         },
         removeTodo(state, action: PayloadAction<number>) {
             state.todos = state.todos.filter(todo => todo.id !== action.payload)

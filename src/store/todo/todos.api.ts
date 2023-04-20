@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Todo } from '../../models/todos.models'
+import { List, Todo } from '../../models/todos.models'
 
 export const todosApi = createApi({
 	reducerPath: 'todos/api',
@@ -12,10 +12,26 @@ export const todosApi = createApi({
 					ordering: order
 				}
 			}),
+		}),
+		getLists: builder.query<List[], string>({
+			query: () => ({
+				url: `list`
+			}),
+		}),
+		sendTodo: builder.mutation<any, Todo>({
+			query: (todo: Todo) => ({
+				url: `task`,
+				method: 'POST',
+				body: todo
+			}),
+		}),
+		deleteTodo: builder.mutation<any, number>({
+			query: (id: number) => ({
+				url: `task/${id}`,
+				method: 'DELETE'
+			}),
 		})
 	}),
 })
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
-export const {useGetTodosQuery} = todosApi
+export const { useGetTodosQuery, useGetListsQuery, useSendTodoMutation, useDeleteTodoMutation } = todosApi
