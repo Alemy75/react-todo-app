@@ -1,22 +1,6 @@
+import { Todo, List } from './../../models/todos.models';
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from '../store'
-
-export type Todo = {
-    id: number
-    title: string
-    description: string
-    date: string
-    status: boolean
-    list: number
-    importance: number
-}
-
-export type List = {
-    id: number
-    name: string
-    color: string
-}
 
 // Интерфейс initialStat
 interface TodosState {
@@ -56,6 +40,6 @@ export const counterSlice = createSlice({
     },
 })
 
-export const {getTodos, getLists, addTodo, removeTodo, changeStatus} = counterSlice.actions
-export default counterSlice.reducer
+export const todosActions = counterSlice.actions
+export const todosReducer = counterSlice.reducer
 

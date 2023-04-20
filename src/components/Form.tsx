@@ -1,12 +1,9 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useState} from 'react';
 import s from './Form.module.scss';
-import {useAppDispatch, useAppSelector} from "../hooks/hooks";
-import {addTodo, getLists, List, Todo} from "../store/slices/todosSlice";
-import axios from "axios";
-const BASE_URL = 'http://127.0.0.1:8000/'
+import {useAppSelector} from "../hooks/hooks";
+import { List } from '../models/todos.models';
 
 const Form: FC = () => {
-    const dispatch = useAppDispatch()
     const {lists} = useAppSelector(state => state.todos)
 
     const [title, setTitle] = useState('')
@@ -17,27 +14,10 @@ const Form: FC = () => {
     const onSelectListHandler = (id: number):void => {
         setList(id)
     }
-    useEffect(() => {
-        axios.get(BASE_URL + 'api/todo/list/')
-            .then(res => {
-                dispatch(getLists(res.data))
-            })
-    } ,[])
+
 
     const onSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        let item: Todo = {
-            id: Math.random(),
-            title,
-            description,
-            date,
-            status: false,
-            list,
-            importance: 2
-        }
-        console.log(item)
-        const res = await axios.post(BASE_URL + 'api/todo/task/', item)
-        dispatch(addTodo(item))
+    
     }
 
     return (
