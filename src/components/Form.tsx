@@ -6,7 +6,6 @@ import { useSendTodoMutation } from '../store/todo/todos.api';
 import axios from 'axios'
 
 const Form: FC = () => {
-
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [date, setDate] = useState('')
@@ -29,7 +28,11 @@ const Form: FC = () => {
             list,
             importance: 2
         }
-        sendTodo(payload)
+        await sendTodo(payload).unwrap()
+        setTitle('')
+        setDescription('')
+        setDate('')
+        setList(0)
     }
 
     return (

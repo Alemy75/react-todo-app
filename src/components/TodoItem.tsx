@@ -3,20 +3,28 @@ import React, { useState } from "react";
 import DeleteSVG from '/src/assets/delete.svg'
 import EditSVG from '/src/assets/edit.svg'
 import { Todo } from '../models/todos.models';
-import { useDeleteTodoMutation } from '../store/todo/todos.api';
+import { useDeleteTodoMutation, useUpdateStatusMutation } from '../store/todo/todos.api';
 
 
 const TodoItem: React.FC<Todo> = (props) => {
     const [status, setStatus] = useState(props.status)
 
-    const [deleteTodo, response] = useDeleteTodoMutation()
+    const [deleteTodo] = useDeleteTodoMutation()
+
+    const [updateStatus] = useUpdateStatusMutation()
 
     const date = new Date(props.date)
 
-    const formattedDate = date.toLocaleDateString();
+    const formattedDate = date.toLocaleString();
 
-    const updateStatusHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        setStatus(event.target.checked)
+    const updateStatusHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        updateStatus({
+            id: props.id,
+            status: !props.status
+        })
+        setStatus(prev => {
+            return !prev
+        })
     }
 
     function onDelete(id: number): void {

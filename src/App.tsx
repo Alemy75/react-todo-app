@@ -5,15 +5,18 @@ import { useGetTodosQuery } from './store/todo/todos.api';
 import { Todo } from './models/todos.models';
 
 function App() {
-    const {data: todos} = useGetTodosQuery('-id')
+    const {data: todos, isLoading, isError} = useGetTodosQuery('-id')
 
     return (
         <div className="App">
             <div className="container">
                 <h1>Список задач</h1>
                 <Form/>
-                {
-                    todos?.map((todo: Todo) => <TodoItem
+                {isLoading &&
+                    <p>Звгрузка...</p>
+                }
+                {todos &&
+                    todos.map((todo: Todo) => <TodoItem
                         key={todo.id}
                         {...todo}
                     />)

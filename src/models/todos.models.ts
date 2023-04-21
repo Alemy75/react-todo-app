@@ -13,3 +13,8 @@ export type List = {
     name: string
     color: string
 }
+
+export interface IStatus {
+    id: number
+    status: boolean
+}
