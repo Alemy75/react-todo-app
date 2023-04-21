@@ -2,20 +2,21 @@ import s from './TodoItem.module.scss';
 import React, { useState } from "react";
 import DeleteSVG from '/src/assets/delete.svg'
 import EditSVG from '/src/assets/edit.svg'
-import { Todo } from '../models/todos.models';
-import { useDeleteTodoMutation, useUpdateStatusMutation } from '../store/todo/todos.api';
+import { Todo, List } from '../models/todos.models';
+import { useDeleteTodoMutation, useGetListsQuery, useUpdateStatusMutation } from '../store/todo/todos.api';
 
 
 const TodoItem: React.FC<Todo> = (props) => {
     const [status, setStatus] = useState(props.status)
-
     const [deleteTodo] = useDeleteTodoMutation()
-
     const [updateStatus] = useUpdateStatusMutation()
+    const { data: lists } = useGetListsQuery('')
+
 
     const date = new Date(props.date)
-
     const formattedDate = date.toLocaleString();
+    const bgColor = lists?.filter(l => l.id === props.list)[0].color + '20'
+    console.log(lists)
 
     const updateStatusHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         updateStatus({
@@ -32,7 +33,7 @@ const TodoItem: React.FC<Todo> = (props) => {
     }
 
     return (
-        <div className={s.item}>
+        <div className={s.item} style={{background: bgColor}}>
             <div className={s.title}>
                 <h3>{props.title}</h3>
                 <div>

@@ -58,11 +58,18 @@
     height: 1em;
     flex-shrink: 0;
     flex-grow: 0;
+    cursor: pointer;
     border: 1px solid #e6e6e6;
     background-repeat: no-repeat;
     background-position: center center;
+    background: white;
     background-size: 50% 50%;
-  }
+    border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    -o-border-radius: 40px;
+}
   input:checked::before {
     background-color: #ffd500;
   }
